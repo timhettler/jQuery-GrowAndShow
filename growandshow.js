@@ -21,9 +21,9 @@
 				
 				$elem.show().height($elem.height()).children()
 					.not($self.settings.selector)
-						.fadeTo($self.settings.speed, 0).delay($self.settings.speed)
-					.removeClass('is-active').addClass('is-hidden').end().filter($self.settings.selector)
-						.removeClass('is-hidden').hide()
+						.fadeTo($self.settings.speed, 0, function(){
+							$(this).removeClass('is-active').addClass('is-hidden').hide();
+						}).delay($self.settings.speed).end().filter($self.settings.selector).removeClass('is-hidden').hide()
 					.end()
 				.end().animate({'height':$elem.children($self.settings.selector).outerHeight()}, $self.settings.speed, function () {
 					$elem.css('height', 'auto').children($self.settings.selector).addClass('is-active').fadeTo($self.settings.speed, 1);
@@ -39,8 +39,10 @@
 			var $self = this;
 			
 			$elem.height($elem.height()).children()
-				.fadeTo($self.settings.speed, 0).delay($self.settings.speed).hide().removeClass('is-active').addClass('is-hidden')
-			.end().animate({'height':0}, $self.settings.speed,function () {
+				.fadeTo($self.settings.speed, 0,function(){
+					$(this).removeClass('is-active').addClass('is-hidden').hide();
+				})
+			.end().delay($self.settings.speed).animate({'height':0}, $self.settings.speed,function () {
 				$self.settings.callback.apply($self);
 			});
 		

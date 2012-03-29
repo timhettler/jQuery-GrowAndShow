@@ -1,10 +1,14 @@
 .is-hidden {
-	direction: none;
+	display: none;
 }
 
 .items {
 	background-color: silver;
+	box-sizing: border-box;
+	color: rgb(255,255,255);
+	font-family: Helvetica, Arial;
 	margin: 15px 0;
+	text-align: center;
 }
 
 .items > div {

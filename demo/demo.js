@@ -1,5 +1,5 @@
 $(document).ready(function(){
 	$('button').on('click', function(){
-		$('.items').growAndShow('.item1');
+		$('.items').growAndShow($(this).data('affects'));
 	});
 });
