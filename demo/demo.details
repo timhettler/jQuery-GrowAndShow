@@ -1,0 +1,9 @@
+---
+ name: jQuery - GrowAndShow
+ description: A jQuery plug-in that opens a container then fades in a selected element.
+ authors:
+   - Tim Hettler
+ resources:
+   - https://raw.github.com/timhettler/jQuery-growAndShow/master/growandshow.js
+ normalize_css: yes
+ ...

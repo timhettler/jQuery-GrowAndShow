@@ -1,0 +1,16 @@
+.is-hidden {
+	direction: none;
+}
+
+.items {
+	background-color: silver;
+	margin: 15px 0;
+}
+
+.items > div {
+	background-color: teal;
+	box-shadow: 0px 3px 5px rgba(0,0,0,.4);
+	height: 100px;
+	padding: 25px;
+	width: 100px;
+}
