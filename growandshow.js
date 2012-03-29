@@ -1,3 +1,9 @@
+/*
+ *  Project: jQuery-GrowAndShow
+ *  Description: A jQuery plug-in that opens a container then fades in a selected element.
+ *  Author: Tim Hettler
+ */
+
 (function ($) {
 
 	GrowAndShow = function (settings) {

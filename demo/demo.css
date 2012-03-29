@@ -1,20 +1,35 @@
 .is-hidden {
-	display: none;
+    display: none !important;
 }
 
 .items {
-	background-color: silver;
-	box-sizing: border-box;
-	color: rgb(255,255,255);
-	font-family: Helvetica, Arial;
-	margin: 15px 0;
-	text-align: center;
+    background-color: silver;
+    box-sizing: border-box;
+    box-shadow: 0px 3px 5px rgba(0,0,0,.4);
+    color: rgb(255,255,255);
+    font-family: Helvetica, Arial;
+    font-weight: bold;
+    margin: 15px 0;
+    text-align: center;
+    text-shadow: 1px 1px 3px rgba(0,0,0,.8);
 }
 
 .items > div {
-	background-color: teal;
-	box-shadow: 0px 3px 5px rgba(0,0,0,.4);
-	height: 100px;
-	padding: 25px;
-	width: 100px;
+    padding: 25px;
 }
+
+.items > div:nth-child(1) {
+    background-color: palegoldenrod;
+    height: 100px;
+}
+
+.items > div:nth-child(2) {
+    background-color: powderblue;
+    height: 200px;
+}
+
+.items > div:nth-child(3) {
+    background-color: thistle;
+    height: 150px;
+    color: #ffffff;
+}​
