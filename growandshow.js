@@ -10,31 +10,32 @@
         this.$el = $(element);
         this.settings = $.extend({}, $.fn.growAndShow.defaultSettings, settings || {});
 
-        this[$settings.action]();
+        this[this.settings.action]();
 
     };
 
     GrowAndShow.prototype = {
 
-        open: function () {
+        open: function (selector) {
 
-            var _self = this;
+            var _self = this,
+                target = selector || _self.settings.selector;
 
-            if(!_self.$el.children(_self.settings.selector).length) { return false; }
+            if(!_self.$el.children(target).length) { return false; }
 
-            if(_self.$el.children(_self.settings.selector).is('.is-hidden')) {
+            if(_self.$el.children(target).is('.is-hidden')) {
 
                 _self.$el.addClass('is-active').show().height(_self.$el.height()).children()
-                    .not(_self.settings.selector)
+                    .not(target)
                         .fadeTo(_self.settings.speed, 0, function(){
                             $(this).removeClass('is-active').addClass('is-hidden').css({
                                 'display' : '',
                                 'opacity' : ''
                             });
-                        }).delay(_self.settings.speed).end().filter(_self.settings.selector).removeClass('is-hidden').hide()
+                        }).delay(_self.settings.speed).end().filter(target).removeClass('is-hidden').hide()
                     .end()
-                .end().animate({'height':_self.$el.children(_self.settings.selector).outerHeight()}, _self.settings.speed, function () {
-                    _self.$el.css('height', 'auto').children(_self.settings.selector).addClass('is-active').fadeTo(_self.settings.speed, 1, function () {
+                .end().animate({'height':_self.$el.children(target).outerHeight()}, _self.settings.speed, function () {
+                    _self.$el.css('height', 'auto').children(target).addClass('is-active').fadeTo(_self.settings.speed, 1, function () {
                         $(this).css({
                             'display' : '',
                             'opacity' : ''
@@ -47,9 +48,10 @@
 
         },
 
-        close: function () {
+        close: function (selector) {
 
-            var _self = this;
+            var _self = this,
+                target = selector || _self.settings.selector;
 
             _self.$el.height(_self.$el.height()).children()
                 .fadeTo(_self.settings.speed, 0,function(){
@@ -65,19 +67,20 @@
 
         },
 
-        toggle: function () {
+        toggle: function (selector) {
 
-            var _self = this;
+            var _self = this,
+                target = selector || _self.settings.selector;
 
             _self.$el.stop().children().stop();
 
-            if(_self.$el.children(_self.settings.selector).is('.is-hidden')) {
+            if(_self.$el.children(target).is('.is-hidden')) {
 
-                _self.open(_self.$el);
+                _self.open(target);
 
             } else {
 
-                _self.close(_self.$el);
+                _self.close(target);
 
             }
         }
@@ -85,11 +88,25 @@
 
     $.fn[pluginName] = function (settings) {
         var args = arguments;
-        if (options === undefined || typeof options === 'object') {
+
+        if (settings === undefined || typeof settings === 'object') {
+
             return this.each(function () {
 
                 if (!$.data(this, 'plugin_' + pluginName)) {
                     $.data(this, 'plugin_' + pluginName, new GrowAndShow( this, settings ));
+                }
+
+            });
+
+        } else if (typeof settings === 'string') {
+
+            return this.each(function () {
+
+                var instance = $.data(this, 'plugin_' + pluginName);
+
+                if (instance instanceof GrowAndShow && typeof instance[settings] === 'function') {
+                    instance[settings].apply( instance, Array.prototype.slice.call( args, 1 ) );
                 }
 
             });
