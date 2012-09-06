@@ -8,7 +8,7 @@
         GrowAndShow = function (element, settings) {
 
         this.$el = $(element);
-        this.settings = $.extend({}, $.fn.growAndShow.defaultSettings, settings || {});
+        this.settings = $.extend({}, $.fn[pluginName].defaultSettings, settings || {});
 
         this[this.settings.action]();
 
@@ -25,24 +25,39 @@
 
             if(_self.$el.children(target).is('.is-hidden')) {
 
-                _self.$el.addClass('is-active').show().height(_self.$el.height()).children()
-                    .not(target)
-                        .fadeTo(_self.settings.speed, 0, function(){
-                            $(this).removeClass('is-active').addClass('is-hidden').css({
-                                'display' : '',
-                                'opacity' : ''
-                            });
-                        }).delay(_self.settings.speed).end().filter(target).removeClass('is-hidden').hide()
+                _self.$el
+                    .removeClass('is-hidden')
+                    .height(_self.$el.height())
+                    .children()
+                        .not(target)
+                            .fadeTo(_self.settings.speed, 0, function (){
+                                $(this)
+                                    .removeClass('is-active')
+                                    .addClass('is-hidden')
+                                    .css({
+                                        display : '',
+                                        opacity : ''
+                                    });
+                            })
+                        .end()
                     .end()
-                .end().animate({'height':_self.$el.children(target).outerHeight()}, _self.settings.speed, function () {
-                    _self.$el.css('height', 'auto').children(target).addClass('is-active').fadeTo(_self.settings.speed, 1, function () {
-                        $(this).css({
-                            'display' : '',
-                            'opacity' : ''
-                        });
+                    .delay(_self.settings.speed)
+                    .animate({ height : _self.$el.children(target).outerHeight() }, _self.settings.speed, function () {
+                        _self.$el
+                            .removeClass('is-hidden')
+                            .addClass('is-active')
+                            .css('height', 'auto')
+                            .children(target)
+                                .addClass('is-active')
+                                .fadeTo(_self.settings.speed, 1, function () {
+                                    _self.$el.css({
+                                        display : '',
+                                        opacity : ''
+                                    });
+                                });
+
+                        _self.settings.callback.apply(_self.$el);
                     });
-                    _self.settings.callback.apply(_self.$el);
-                });
 
             }
 
@@ -53,17 +68,28 @@
             var _self = this,
                 target = selector || _self.settings.selector;
 
-            _self.$el.height(_self.$el.height()).children()
-                .fadeTo(_self.settings.speed, 0,function(){
-                    $(this).removeClass('is-active').addClass('is-hidden').css({
-                        'display' : '',
-                        'opacity' : ''
-                    });
-                })
-            .end().delay(_self.settings.speed).animate({'height':0}, _self.settings.speed,function () {
-                $(this).css('height', '').removeClass( 'is-active' );
-                _self.settings.callback.apply(_self);
-            });
+            _self.$el
+                .height(_self.$el.height())
+                .children()
+                    .fadeTo(_self.settings.speed, 0, function (){
+                        $(this)
+                            .removeClass('is-active')
+                            .addClass('is-hidden')
+                            .css({
+                                display : '',
+                                opacity : ''
+                            });
+                    })
+                .end()
+                .delay(_self.settings.speed)
+                .animate({ height : 0 }, _self.settings.speed,function () {
+                    _self.$el
+                        .removeClass( 'is-active' )
+                        .addClass('is-hidden')
+                        .css('height', '');
+
+                    _self.settings.callback.apply(_self);
+                });
 
         },
 
@@ -72,7 +98,10 @@
             var _self = this,
                 target = selector || _self.settings.selector;
 
-            _self.$el.stop().children().stop();
+            _self.$el
+                .stop()
+                .children()
+                .stop();
 
             if(_self.$el.children(target).is('.is-hidden')) {
 
@@ -114,7 +143,7 @@
 
     };
 
-    $.fn.growAndShow.defaultSettings = {
+    $.fn[pluginName].defaultSettings = {
         selector : ':first-child',
         speed : 200,
         action : 'toggle',
