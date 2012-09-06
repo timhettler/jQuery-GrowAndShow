@@ -1,0 +1,12 @@
+{
+  "name" : "growAndShow",
+  "description" : "A jQuery plug-in that opens a container then fades in a selected child element.",
+  "keywords" : ["jQuery", "plug-in"],
+  "homepage" : "https://github.com/timhettler/jQuery-growAndShow",
+  "repository" : {"type": "git", "url": "git://github.com/timhettler/jQuery-growAndShow.git"},
+  "licenses" : [{"type" : "MIT License"}, {"type" : "GPL"}],
+  "main" : "growAndShow.js",
+  "dependencies": {"jquery": ">= 1.4.2"},
+  "author" : {"name" : "Tim Hettler", "twitter" : "https://twitter.com/timhettler"},
+  "version" : "1.1.0"
+}
