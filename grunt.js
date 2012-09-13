@@ -15,8 +15,11 @@ module.exports = function(grunt) {
                 dest: 'dist/<%= pkg.name %>.min.js'
             }
         },
+        qunit: {
+            files: ['test/**/*.html']
+        },
         lint: {
-          files: ['grunt.js', '*.js']
+          files: ['grunt.js', 'src/**/*.js', 'test/**/*.js']
         },
         jshint: {
             options: {
@@ -38,5 +41,5 @@ module.exports = function(grunt) {
         uglify: {}
     });
 
-    grunt.registerTask('default', 'lint min');
+    grunt.registerTask('default', 'lint qunit min');
 };

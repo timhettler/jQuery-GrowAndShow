@@ -1,161 +1,169 @@
-/*
- *  Project: jQuery-GrowAndShow
- *  Description: A jQuery plug-in that opens a container then fades in a selected element.
- *  Author: Tim Hettler
- */
+/*! growAndShow
+* https://github.com/timhettler/jQuery-growAndShow
+* Copyright (c) 2012 Tim Hettler; Licensed MIT License, GPL */
 
 (function ( $, window, document, undefined ) {
 
-    GrowAndShow = function (settings) {
+    var pluginName = 'growAndShow',
 
-        this.growAndShow = null;
-        this.settings = settings;
+        GrowAndShow = function (element, settings) {
 
-        return this;
+            this.$el = $(element);
 
-    };
+            this._defaults = $.fn[pluginName].defaultSettings;
+            this._name = pluginName;
+
+            this.init(settings);
+        };
 
     GrowAndShow.prototype = {
 
-        open: function ($elem) {
+        init: function (settings) {
 
-            var $self = this;
+            this.settings = $.extend({}, $.fn[pluginName].defaultSettings, settings || {});
 
-            if(!$elem.children($self.settings.selector).length) { return false; }
+            this[this.settings.action]();
 
-            if($elem.children($self.settings.selector).is('.is-hidden')) {
+        },
 
-                $elem.addClass('is-active').show().height($elem.height()).children()
-                    .not($self.settings.selector)
-                        .fadeTo($self.settings.speed, 0, function(){
-                            $(this).removeClass('is-active').addClass('is-hidden').css({
-                                'display' : '',
-                                'opacity' : ''
-                            });
-                        }).delay($self.settings.speed).end().filter($self.settings.selector).removeClass('is-hidden').hide()
+        open: function () {
+
+            var _self = this,
+                target = _self.settings.selector;
+
+            if(!_self.$el.children(target).length) { return false; }
+
+            if(_self.$el.children(target).is('.is-hidden')) {
+                _self.$el
+                    .removeClass('is-hidden')
+                    .height(_self.$el.height())
+                    .children()
+                        .not(target)
+                            .fadeTo(_self.settings.speed, 0, function (){
+                                $(this)
+                                    .removeClass('is-active')
+                                    .addClass('is-hidden')
+                                    .css({
+                                        display : '',
+                                        opacity : ''
+                                    });
+                            })
+                        .end()
                     .end()
-                .end().animate({'height':$elem.children($self.settings.selector).outerHeight()}, $self.settings.speed, function () {
-                    $elem.css('height', 'auto').children($self.settings.selector).addClass('is-active').fadeTo($self.settings.speed, 1, function () {
-                        $(this).css({
-                            'display' : '',
-                            'opacity' : ''
-                        });
+                    .animate({ height : _self.$el.children(target).outerHeight() }, _self.settings.speed, function () {
+                        _self.$el
+                            .removeClass('is-hidden')
+                            .addClass('is-active')
+                            .css('height', 'auto')
+                            .children(target)
+                                .removeClass('is-hidden')
+                                .addClass('is-active')
+                                .fadeTo(_self.settings.speed, 1, function () {
+                                    _self.$el.css({
+                                        display : '',
+                                        opacity : ''
+                                    });
+
+                                    _self.settings.callback.apply(_self.$el);
+                                });
                     });
-                    $self.settings.callback.apply($elem);
+
+            }
+
+        },
+
+        close: function () {
+
+            var _self = this;
+
+            _self.$el
+                .height(_self.$el.height())
+                .children()
+                    .fadeTo(_self.settings.speed, 0, function (){
+                        $(this)
+                            .removeClass('is-active')
+                            .addClass('is-hidden')
+                            .css({
+                                display : '',
+                                opacity : ''
+                            });
+                    })
+                .end()
+                .delay(_self.settings.speed)
+                .animate({ height : 0 }, _self.settings.speed,function () {
+                    _self.$el
+                        .removeClass( 'is-active' )
+                        .addClass('is-hidden')
+                        .css('height', '');
+
+                    _self.settings.callback.apply(_self);
                 });
 
-            }
-
         },
 
-        close: function ($elem) {
+        toggle: function () {
 
-            var $self = this;
+            var _self = this,
+                target = _self.settings.selector;
 
-            $elem.height($elem.height()).children()
-                .fadeTo($self.settings.speed, 0,function(){
-                    $(this).removeClass('is-active').addClass('is-hidden').css({
-                        'display' : '',
-                        'opacity' : ''
-                    });
-                })
-            .end().delay($self.settings.speed).animate({'height':0}, $self.settings.speed,function () {
-                $(this).css('height', '').removeClass( 'is-active' );
-                $self.settings.callback.apply($self);
+            _self.$el
+                .stop()
+                .children()
+                .stop();
+
+            if(_self.$el.children(target).is('.is-active')) {
+
+                _self.close(target);
+
+            } else {
+
+                _self.open(target);
+
+            }
+        }
+    };
+
+    $.fn[pluginName] = function (settings) {
+        var args = arguments;
+
+        if (settings === undefined || typeof settings === 'object') {
+
+            return this.each(function () {
+
+                var instance = $.data(this, 'plugin_' + pluginName);
+
+                if (!instance) {
+
+                    $.data(this, 'plugin_' + pluginName, new GrowAndShow( this, settings ));
+
+                } else if (instance instanceof GrowAndShow) {
+
+                    instance.init.apply( instance, Array.prototype.slice.call( args ) );
+
+                }
+
             });
 
-        },
+        } else if (typeof settings === 'string' && settings[0] !== '_' && settings !== 'init') {
 
-        toggle: function ($elem) {
+            return this.each(function () {
 
-            var $self = this;
+                var instance = $.data(this, 'plugin_' + pluginName);
 
-            $elem.stop().children().stop();
+                if (instance instanceof GrowAndShow && typeof instance[settings] === 'function') {
+                    instance[settings].apply( instance, Array.prototype.slice.call( args, 1 ) );
+                }
 
-            if($elem.children($self.settings.selector).is('.is-hidden')) {
-
-                $self.open($elem);
-
-            } else {
-
-                $self.close($elem);
-
-            }
+            });
         }
-    };
-
-    $.fn.growAndShow = function (selector, action, speed, callback) {
-
-        var settings = {};
-
-        if(typeof selector === 'object') {
-
-            settings = selector;
-
-        } else if(typeof selector === 'string')  {
-
-            if ( $( this ).find( selector ) ) {
-
-                settings.selector = selector;
-
-            } else {
-
-                settings.action = selector;
-
-            }
-
-            if ( typeof action === 'string' ) {
-
-                settings.action = action;
-
-            } else if ( typeof action === 'number' ) {
-
-                settings.speed = action;
-
-            } else if ( typeof action === 'function' ) {
-
-                settings.callback = action;
-
-            }
-
-            if ( typeof speed === 'number' ) {
-
-                settings.speed = speed;
-
-            } else if ( typeof speed === 'function' ) {
-
-                settings.callback = speed;
-
-            }
-
-            if ( !settings.callback ) {
-
-                settings.callback = callback;
-
-            }
-
-        }
-
-        settings = $.extend({}, $.fn.growAndShow.defaultSettings, settings || {});
-
-        return this.each(function () {
-
-            var $elem = $(this),
-                $settings = $.extend(true, {}, settings),
-                growAndShow = new GrowAndShow($settings);
-
-            growAndShow[$settings.action]($elem);
-
-        });
 
     };
 
-    $.fn.growAndShow.defaultSettings = {
+    $.fn[pluginName].defaultSettings = {
         selector : ':first-child',
         speed : 200,
         action : 'toggle',
-        callback : function () {
-        }
+        callback : function () {}
     };
 
-})( jQuery, window, document );
+}( jQuery, window, document ));
