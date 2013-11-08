@@ -1,12 +1,33 @@
 {
-  "name" : "growAndShow",
-  "description" : "A jQuery plug-in that opens a container then fades in a selected child element.",
-  "keywords" : ["jQuery", "plug-in"],
-  "homepage" : "https://github.com/timhettler/jQuery-growAndShow",
-  "repository" : {"type": "git", "url": "git://github.com/timhettler/jQuery-growAndShow.git"},
-  "licenses" : [{"type" : "MIT License"}, {"type" : "GPL"}],
-  "main" : "growAndShow.js",
-  "dependencies": {"jquery": ">= 1.7"},
-  "author" : {"name" : "Tim Hettler", "twitter" : "https://twitter.com/timhettler"},
-  "version" : "1.1.0"
+  "name": "growAndShow",
+  "description": "A jQuery plug-in that opens a container then fades in a selected child element.",
+  "keywords": [
+    "jQuery",
+    "plug-in"
+  ],
+  "homepage": "https://github.com/timhettler/jQuery-growAndShow",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/timhettler/jQuery-growAndShow.git"
+  },
+  "licenses": [
+    {
+      "type": "MIT License"
+    },
+    {
+      "type": "GPL"
+    }
+  ],
+  "main": "growAndShow.js",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.7.1",
+    "grunt-contrib-uglify": "~0.2.5",
+    "grunt-contrib-qunit": "~0.3.0"
+  },
+  "author": {
+    "name": "Tim Hettler",
+    "twitter": "https://twitter.com/timhettler"
+  },
+  "version" : "1.1.1"
 }

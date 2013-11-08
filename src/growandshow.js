@@ -1,7 +1,3 @@
-/*! growAndShow
-* https://github.com/timhettler/jQuery-growAndShow
-* Copyright (c) 2012 Tim Hettler; Licensed MIT License, GPL */
-
 (function ( $, window, document, undefined ) {
 
     var pluginName = 'growAndShow',
@@ -50,11 +46,11 @@
                             })
                         .end()
                     .end()
+                    .delay(_self.settings.speed)
                     .animate({ height : _self.$el.children(target).outerHeight() }, _self.settings.speed, function () {
                         _self.$el
-                            .removeClass('is-hidden')
                             .addClass('is-active')
-                            .css('height', 'auto')
+                            .css('height', '')
                             .children(target)
                                 .removeClass('is-hidden')
                                 .addClass('is-active')
@@ -109,7 +105,7 @@
             _self.$el
                 .stop()
                 .children()
-                .stop();
+                    .stop();
 
             if(_self.$el.children(target).is('.is-active')) {
 
@@ -145,7 +141,6 @@
             });
 
         } else if (typeof settings === 'string' && settings[0] !== '_' && settings !== 'init') {
-
             return this.each(function () {
 
                 var instance = $.data(this, 'plugin_' + pluginName);

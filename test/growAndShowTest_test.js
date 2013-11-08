@@ -43,7 +43,7 @@
   });
 
   test('overwrites default settings', function() {
-    var key = Object.keys(jQuery.fn['growAndShow'].defaultSettings)[0],
+    var key = Object.keys(jQuery.fn[this.pluginName].defaultSettings)[0],
         obj = {};
         obj[key] = 'qunittestvalue';
 

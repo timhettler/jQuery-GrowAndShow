@@ -10,6 +10,10 @@
 *~
 *.sass-cache
 
+# Package folders
+node_modules
+bower_components
+
 # OS or Editor folders
 .DS_Store
 Thumbs.db
@@ -21,14 +25,6 @@ Thumbs.db
 nbproject
 *.sublime-project
 *.sublime-workspace
-
-# Dreamweaver added files
-_notes
-dwsync.xml
-
-# Komodo
-*.komodoproject
-.komodotools
 
 # Folders to ignore
 .hg
