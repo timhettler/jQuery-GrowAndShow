@@ -3,8 +3,10 @@
     var pluginName = 'growAndShow',
 
         GrowAndShow = function (element, settings) {
-
+            console.log('test');
             this.$el = $(element);
+            this.$el.children()
+                .addClass('is-hidden is-transparent')
 
             this._defaults = $.fn[pluginName].defaultSettings;
             this._name = pluginName;
@@ -38,7 +40,7 @@
                             .fadeTo(_self.settings.speed, 0, function (){
                                 $(this)
                                     .removeClass('is-active')
-                                    .addClass('is-hidden')
+                                    .addClass('is-hidden is-transparent')
                                     .css({
                                         display : '',
                                         opacity : ''
@@ -52,13 +54,15 @@
                             .addClass('is-active')
                             .css('height', '')
                             .children(target)
-                                .removeClass('is-hidden')
+                                .css('opacity', 0)
+                                .removeClass('is-hidden is-transparent')
                                 .addClass('is-active')
                                 .fadeTo(_self.settings.speed, 1, function () {
-                                    _self.$el.css({
-                                        display : '',
-                                        opacity : ''
-                                    });
+                                    $(this)
+                                        .css({
+                                            display : '',
+                                            opacity : ''
+                                        });
 
                                     _self.settings.callback.apply(_self.$el);
                                 });
@@ -78,7 +82,7 @@
                     .fadeTo(_self.settings.speed, 0, function (){
                         $(this)
                             .removeClass('is-active')
-                            .addClass('is-hidden')
+                            .addClass('is-hidden is-transparent')
                             .css({
                                 display : '',
                                 opacity : ''

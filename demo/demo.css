@@ -2,6 +2,10 @@
     display: none !important;
 }
 
+.is-transparent {
+    opacity: 0 !important;
+}
+
 .items {
     background-color: silver;
     box-sizing: border-box;
