@@ -15,10 +15,12 @@
   "license": "MIT",
   "ignore": [
     "**/.*",
+    "Gruntfile.js",
+    "package.json",
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "src"
   ],
   "dependencies": {
     "jquery": "~2.0.3"
