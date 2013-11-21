@@ -81,7 +81,7 @@
   });
 
   asyncTest('opens child', 2, function () {
-    var $child = this.$el.children(jQuery.fn[this.pluginName].defaultSettings.selector).addClass('is-hidden');
+    var $child = this.$el.children(jQuery.fn[this.pluginName].defaultSettings.selector);
 
     this.$el[this.pluginName]({
       action : 'open',
@@ -107,7 +107,7 @@
   });
 
   asyncTest('toggle opens closed child', 1, function () {
-    var $child = this.$el.children(jQuery.fn[this.pluginName].defaultSettings.selector).addClass('is-hidden');
+    var $child = this.$el.children(jQuery.fn[this.pluginName].defaultSettings.selector);
 
     this.$el[this.pluginName]({
       callback : function () {
