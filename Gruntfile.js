@@ -10,7 +10,22 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON("package.json"),
         clean: ["dist/"],
         copy: {
-            files: {expand: true, cwd: 'src/', src: ['**'], dest: 'dist/'},
+            source: {
+                files: [{
+                    expand: true,
+                    cwd: 'src/', 
+                    src: ['**'], 
+                    dest: 'dist/'
+                }],
+            },
+            jquery: {
+                files: [{
+                    expand: true,
+                    cwd: 'bower_components',
+                    src: ['jquery/jquery.min.js'],
+                    dest: 'demo/'
+                }]
+            }
         },
         uglify: {
             compile: {
