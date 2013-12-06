@@ -10,18 +10,18 @@ A jQuery plug-in that opens a container then fades in a selected element. It's a
 
 ### Bower Install
 
-  ```
-  bower install jQuery-GrowAndShow
-  ```
+ ```
+ bower install jQuery-GrowAndShow
+ ```
 
 ### Usage
 
 To start the animation, invoke the method on the parent container:
 
-	```javascript
-	$('.parent')
-	    growAndShow();
-	```
+```javascript
+$('.parent')
+    growAndShow();
+```
 
 This will reveal the first child of the parent node.
 
