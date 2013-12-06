@@ -6,7 +6,7 @@
     "timhettler <me+github@timhettler.com>"
   ],
   "description": "A jQuery plug-in that opens a container then fades in a selected child element.",
-  "main": "dist/growAndShow.js",
+  "main": ["./dist/growandshow.js", "./dist/growandshow.css"],
   "keywords": [
     "jQuery",
     "plug-in",
