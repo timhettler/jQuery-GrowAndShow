@@ -8,17 +8,11 @@ A jQuery plug-in that opens a container then fades in a selected element. It's a
 
 ## Getting Started
 
-Include the CSS before the closing `</head>` element:
+### Bower Install
 
-	```html
-	<link src="/path/to/growAndShow.css" rel="stylesheet" />
-	```
-
-…and the JavaScript before the closing `</body>` element:
-
-	```html
-	<script src="/path/to/growAndShow.min.js"></script>
-	```
+  ```
+  bower install jQuery-GrowAndShow
+  ```
 
 ### Usage
 
