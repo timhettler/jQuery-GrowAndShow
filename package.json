@@ -18,7 +18,7 @@
       "type": "GPL"
     }
   ],
-  "main": "dist/growandshow.js",
+  "main": ["./dist/growandshow.js", "./dist/growandshow.css"],
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-jshint": "~0.7.1",
