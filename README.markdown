@@ -20,7 +20,7 @@ To start the animation, invoke the method on the parent container:
 
 ```javascript
 $('.parent')
-    growAndShow();
+    .growAndShow();
 ```
 
 This will reveal the first child of the parent node.
